@@ -1,4 +1,4 @@
-name: Unity Test Runner
+name: Test
 
 on:
   push: { branches: [main] }
@@ -8,7 +8,7 @@ env:
 
 jobs:
   test:
-    name: ${{ matrix.testMode }} test on ${{ matrix.unityVersion }}
+    name: ${{ matrix.testMode }} on ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

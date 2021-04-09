@@ -1,50 +1,41 @@
-name: Test
+name: UnityTest
 
-on:
-  push: { branches: [main] }
+on: push
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  PROJECT_ROOT: .
 
 jobs:
-  test:
-    name: ${{ matrix.testMode }} on ${{ matrix.unityVersion }}
+  testAllModes:
+    name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        projectPath:
-          - .
         unityVersion:
-          - 2019.4.5f1
+          - 2018.4.19f1
         testMode:
           - playmode
           - editmode
-
     steps:
-      # Checkout
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           lfs: true
 
-      # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}
-          restore-keys: |
-            Library-
+          path: ${{ env.PROJECT_ROOT }}/Library
+          key: Library-${{ env.PROJECT_ROOT }}
 
-      # Test
-      - uses: webbertakken/unity-test-runner@v1.7
+      - uses: webbertakken/unity-test-runner@v1.4
         id: tests
         with:
-          projectPath: ${{ matrix.projectPath }}
+          projectPath: ${{ env.PROJECT_ROOT }}
           unityVersion: ${{ matrix.unityVersion }}
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
 
-      # Upload Artifact
       - uses: actions/upload-artifact@v1
         with:
           name: Test results for ${{ matrix.testMode }}

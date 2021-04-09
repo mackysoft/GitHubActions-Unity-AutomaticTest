@@ -36,7 +36,7 @@ jobs:
             Library-
 
       # Test
-      - uses: webbertakken/unity-test-runner@v1.7
+      - uses: webbertakken/unity-test-runner@v2.0-alpha-4
         id: tests
         with:
           projectPath: ${{ matrix.projectPath }}

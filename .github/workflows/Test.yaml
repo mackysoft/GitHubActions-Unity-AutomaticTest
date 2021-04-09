@@ -43,6 +43,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
+          customParameters: '-nographics'
 
       # Upload
       - uses: actions/upload-artifact@v2

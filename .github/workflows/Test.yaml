@@ -6,7 +6,6 @@ on:
     - main
 
 env:
-  PROJECT_ROOT: .
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
@@ -26,6 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.3.4
+        with:
+          lfs: true
+
       - uses: actions/cache@v2.1.4
         with:
           path: ${{ matrix.projectPath }}/Library

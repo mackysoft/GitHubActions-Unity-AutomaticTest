@@ -37,7 +37,7 @@ jobs:
         with:
           projectPath: ${{ env.PROJECT_ROOT }}
           unityVersion: ${{ matrix.unityVersion }}
-          testMode: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
 
       - uses: actions/upload-artifact@v1

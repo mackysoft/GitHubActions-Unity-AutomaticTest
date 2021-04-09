@@ -16,7 +16,7 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2018.4.9f1
+          - 2019.2.5f1
         testMode:
           - playmode
           - editmode
@@ -30,7 +30,7 @@ jobs:
           key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-
-      - uses: webbertakken/unity-test-runner@v1.7
+      - uses: webbertakken/unity-test-runner@v1.1
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         id: tests

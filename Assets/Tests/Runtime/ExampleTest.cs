@@ -5,16 +5,19 @@ using UnityEngine.TestTools;
 
 public class ExampleTest {
 
-	[Test]
-	public void Test_1 () {
-		bool condition = true;
-		Assert.True(condition);
-	}
+    // A Test behaves as an ordinary method
+    [Test]
+    public void PlayModeTestScriptSampleSimplePasses () {
+        // Use the Assert class to test conditions
+    }
 
-	[UnityTest]
-	public IEnumerator UnityTest_1 () {
-		yield return null;
-		Assert.Pass();
-	}
+    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
+    // `yield return null;` to skip a frame.
+    [UnityTest]
+    public IEnumerator PlayModeTestScriptSampleWithEnumeratorPasses () {
+        // Use the Assert class to test conditions.
+        // Use yield to skip a frame.
+        yield return null;
+    }
 
 }

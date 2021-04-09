@@ -13,7 +13,7 @@ public class ExampleTest {
 
 	[UnityTest]
 	public IEnumerator UnityTest_1 () {
-		yield return new WaitForSeconds(0.5f);
+		yield return null;
 		Assert.Pass();
 	}
 

@@ -6,7 +6,6 @@ on:
     - main
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   PROJECT_ROOT: .
 
 jobs:
@@ -23,16 +22,18 @@ jobs:
           - editmode
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2.3.4
         with:
           lfs: true
 
-      - uses: actions/cache@v1.1.0
+      - uses: actions/cache@v2.1.4
         with:
           path: ${{ env.PROJECT_ROOT }}/Library
           key: Library-${{ env.PROJECT_ROOT }}
 
-      - uses: webbertakken/unity-test-runner@v1.4
+      - uses: webbertakken/unity-test-runner@v1.7
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         id: tests
         with:
           projectPath: ${{ env.PROJECT_ROOT }}

@@ -1,0 +1,46 @@
+name: Unity Test Runner
+
+on:
+  push:
+    branches:
+    - main
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  PROJECT_ROOT: .
+
+jobs:
+  testAllModes:
+    name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2019.2.5f1
+        testMode:
+          - playMode
+          - editMode
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          lfs: true
+
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ${{ env.PROJECT_ROOT }}/Library
+          key: Library-${{ env.PROJECT_ROOT }}
+
+      - uses: webbertakken/unity-test-runner@v1.4
+        id: tests
+        with:
+          projectPath: ${{ env.PROJECT_ROOT }}
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.unityVersion }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}

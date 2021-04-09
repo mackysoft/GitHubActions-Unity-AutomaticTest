@@ -18,7 +18,7 @@ jobs:
         unityVersion:
           - 2018.4.19f1
         testMode:
-          - playmode
+          #- playmode
           - editmode
 
     steps:

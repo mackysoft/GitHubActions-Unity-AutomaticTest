@@ -57,6 +57,7 @@ sysinfo.txt
 
 # Builds
 *.apk
+*.aab
 *.unitypackage
 
 # Crashlytics generated file
@@ -68,11 +69,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-
-# Asset Store Tools
-/[Aa]ssets/[Aa]ssetStoreTools.meta
-/[Aa]ssets/[Aa]ssetStoreTools/
-
-# Plugins
-/[Aa]ssets/[Pp]lugins.meta
-/[Aa]ssets/[Pp]lugins/

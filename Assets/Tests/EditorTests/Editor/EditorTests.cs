@@ -10,6 +10,7 @@ namespace Tests {
         [Test]
         public void EditModeTestScriptSampleSimplePasses () {
             // Use the Assert class to test conditions
+            Assert.Fail();
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

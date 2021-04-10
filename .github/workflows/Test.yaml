@@ -1,10 +1,10 @@
-name: Test project
+name: Test
 
 on: [push, pull_request]
 
 jobs:
-  testAllModes:
-    name: Test in ${{ matrix.testMode }}
+  test:
+    name: ${{ matrix.testMode }} on ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -17,15 +17,20 @@ jobs:
           - playmode
           - editmode
     steps:
+      # Checkout
       - uses: actions/checkout@v2
         with:
           lfs: true
+
+      # Cache
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
           key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-
+
+      # Test
       - uses: game-ci/unity-test-runner@v2
         id: tests
         env:
@@ -36,6 +41,8 @@ jobs:
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           checkName: ${{ matrix.testMode }} Test Results
+
+      # Upload Artifact
       - uses: actions/upload-artifact@v2
         if: always()
         with:

@@ -55,6 +55,11 @@ jobs:
           
   reportResult:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        testMode:
+          - playmode
+          - editmode
     needs: test
     steps:
 

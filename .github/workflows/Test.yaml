@@ -85,4 +85,4 @@ jobs:
           curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
           exit $INPUT_RESULT
         env:
-          SLACK: ${{ secrets.slackhook }}
+          SLACK: ${{ secrets.SLACK_HOOK }}

@@ -48,3 +48,17 @@ jobs:
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
+
+      - uses: actions/setup-dotnet@v1.0.2
+        with:
+          dotnet-version: '3.0.100'
+
+      - name: report result to slack
+        run: |
+          cd NUnitXmlReporter
+          dotnet run ../artifact/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+          cd ..
+          curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
+          exit $INPUT_RESULT
+        env:
+          SLACK: ${{ secrets.SLACK_HOOK }}

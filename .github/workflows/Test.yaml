@@ -62,7 +62,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: ${{ steps.tests.outputs.artifactsPath }}
-          path: artifact
+          path: ${{ matrix.testMode }}-artifacts
 
       - name: Clone NUnitXmlReporter
         run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
@@ -75,7 +75,7 @@ jobs:
       - name: Report Result to Slack
         run: |
           cd NUnitXmlReporter
-          dotnet run ../artifact/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+          dotnet run ../artifact/${{ matrix.testMode }}-results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
           cd ..
           curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
           exit $INPUT_RESULT

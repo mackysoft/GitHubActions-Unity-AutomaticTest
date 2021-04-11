@@ -18,12 +18,14 @@ jobs:
           - editmode
     steps:
       # Checkout
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           lfs: true
 
       # Cache
-      - uses: actions/cache@v2
+      - name: Cache
+        uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
           key: Library-${{ matrix.projectPath }}
@@ -31,7 +33,8 @@ jobs:
             Library-
 
       # Test
-      - uses: game-ci/unity-test-runner@v2
+      - name: Test
+        uses: game-ci/unity-test-runner@v2
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -43,7 +46,8 @@ jobs:
           checkName: ${{ matrix.testMode }} Test Results
 
       # Upload Artifact
-      - uses: actions/upload-artifact@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: Test results for ${{ matrix.testMode }}
@@ -54,13 +58,17 @@ jobs:
     needs: test
     steps:
 
-      - uses: actions/download-artifact@main
+      - name: Download Artifact
+        uses: actions/download-artifact@main
         with:
           name: ${{ steps.tests.outputs.artifactsPath }}
           path: artifact
-      - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
 
-      - uses: actions/setup-dotnet@v1.0.2
+      - name: Clone NUnitXmlReporter
+        run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: '3.0.100'
       

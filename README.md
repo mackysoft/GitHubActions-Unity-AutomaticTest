@@ -4,7 +4,7 @@ An example project for automated testing using Unity and GitHub Actions.
 
 > Qiita: [UnityとGitHubActionを使って自動テストを行う](https://qiita.com/makihiro_dev/private/fda3fa840f5311d2b3d5)
 
-## 🔰 Process
+## 🔰 Tutorial
 
 ### 1. Prepare Tests Repository
 
@@ -102,4 +102,4 @@ Hiroya Aramaki is a indie game developer in Japan.
 
 #  📜 License
 
-This library is under the MIT License.
+This repository is under the MIT License.

@@ -58,7 +58,7 @@ jobs:
         with:
           name: ${{ steps.tests.outputs.artifactsPath }}
           path: artifact
-      - run: git clone https://github.com/mackysoft/Unity-GitHubActions-AutomaticTest-Example
+      - run: git clone https://github.com/mackysoft/Unity-GitHubActions-AutomaticTest-Example.git
 
 
       - uses: actions/setup-dotnet@v1.0.2

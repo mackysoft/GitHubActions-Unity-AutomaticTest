@@ -66,7 +66,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@main
         with:
-          name: ${{ steps.tests.outputs.artifactsPath }}
+          name: Test results for ${{ matrix.testMode }}
           path: ${{ matrix.testMode }}-artifacts
 
       - name: Clone NUnitXmlReporter

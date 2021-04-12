@@ -53,7 +53,8 @@ jobs:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
           
-  reportResult:
+  reportSlack:
+    name: ${{ matrix.testMode }} on ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -62,27 +63,31 @@ jobs:
           - editmode
     needs: test
     steps:
-
+    
+      # Download Artifact
       - name: Download Artifact
         uses: actions/download-artifact@main
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ matrix.testMode }}-artifacts
 
+      # Clone NUnitXmlReporter
       - name: Clone NUnitXmlReporter
         run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
 
+      # Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: '3.0.100'
       
+      # Report Result to Slack
       - name: Report Result to Slack
+        env:
+          SLACK: ${{ secrets.SLACK_HOOK }}
         run: |
           cd NUnitXmlReporter
           dotnet run ../${{ matrix.testMode }}-artifacts/${{ matrix.testMode }}-results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
           cd ..
           curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
           exit $INPUT_RESULT
-        env:
-          SLACK: ${{ secrets.SLACK_HOOK }}

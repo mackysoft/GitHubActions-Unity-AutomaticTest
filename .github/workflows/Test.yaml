@@ -54,7 +54,7 @@ jobs:
           path: ${{ steps.tests.outputs.artifactsPath }}
           
   reportSlack:
-    name: ${{ matrix.testMode }} on ${{ matrix.unityVersion }}
+    name: ${{ matrix.testMode }} report
     runs-on: ubuntu-latest
     strategy:
       matrix:
